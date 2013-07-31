@@ -2,6 +2,8 @@
 
 The colors management app that you're missing
 
+[![Code Climate](https://codeclimate.com/github/alem0lars/colorme.png)](https://codeclimate.com/github/alem0lars/colorme)
+
 ## Supported ruby versions
 
 Tested against:
