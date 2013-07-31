@@ -2,6 +2,12 @@
 
 The colors management app that you're missing
 
+## Supported ruby versions
+
+Tested against:
+
+    2.0.0
+
 ## Installation
 
 Add this line to your application's Gemfile:
