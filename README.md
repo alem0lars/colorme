@@ -27,10 +27,10 @@ Or install it yourself as:
 
 ## Usage
 
-ColorME can be started in 2 modes:
-- *CMD*: This allows you to just throw commands from your favourite console.
-         It allows the programmatic use for all of its features.
-- *QT*: This will start the UI (written in Qt). It's the standalone application.
+At the moment the ColorME application can be started in 2 modes:
+- `CMD`: This allows you to just throw commands from your favourite console.
+           It allows the programmatic use for all of its features.
+- `QT`: This will start the UI (written in Qt). It's the standalone application.
 
 ColorME also separates the framework provided from the application
 (which uses the framework), this allows you to use ColorME as a *powerful
