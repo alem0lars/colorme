@@ -1,20 +1,24 @@
+# os-specific
+.DS_Store
+
+# editor-related
+*.swp
+*.sublime-project
+*.sublime-workspace
+
+# ruby
+vendor/ruby
 *.gem
 *.rbc
+# bundler
 .bundle
-.config
-.yardoc
 Gemfile.lock
-InstalledFiles
+# yardoc
+.yardoc
 _yardoc
-coverage
-doc/
-lib/bundler/man
-pkg
-rdoc
-spec/reports
-test/tmp
-test/version_tmp
+doc
+
+# output or temporary artifacts
 tmp
-*.swp
-.DS_Store
-vendor/ruby
+spec/reports
+coverage
