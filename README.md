@@ -1,4 +1,4 @@
-# Colorme
+# ColorME
 
 The colors management app that you're missing
 
