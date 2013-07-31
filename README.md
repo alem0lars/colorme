@@ -9,7 +9,7 @@ The colors management app that you're missing
 
 Tested against:
 
-    2.0.0
+[`2.0.0`]
 
 ## Installation
 
