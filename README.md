@@ -7,9 +7,7 @@ The colors management app that you're missing
 
 ## Supported ruby versions
 
-Tested against:
-
-[`2.0.0`]
+Tested against: `[ 2.0.0 ]`
 
 ## Installation
 
