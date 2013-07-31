@@ -1,6 +1,6 @@
 # ColorME
 
-The colors management app that you're missing
+The colors management app that you're missing.
 
 [![Code Climate](https://codeclimate.com/github/alem0lars/colorme.png)](https://codeclimate.com/github/alem0lars/colorme)
 [![Build Status](https://travis-ci.org/alem0lars/colorme.png?branch=develop)](https://travis-ci.org/alem0lars/colorme)
