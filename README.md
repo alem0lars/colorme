@@ -36,3 +36,11 @@ TODO: Write usage instructions here
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
+
+## Documentation
+
+The docs for the developers is under: [rdoc.info](http://rdoc.info/github/alem0lars/colorme)
+
+The docs for the users is
+the [wiki](https://github.com/alem0lars/colorme/wiki)
+and this [readme](https://github.com/alem0lars/colorme/blob/develop/README.md)
