@@ -1,8 +1,27 @@
 module Colorme
   module Color
+
+    # The class exposes StandardIlluminant.allowed_stds which are the name
+    # for the available standard names that can be used to create a
+    # new StandardIlluminant.
+    #
+    # A StandardIlluminant exposes the x,y,z coordinates, scaled to get y=1
     class StandardIlluminant
 
-      @@values = {
+      attr_accessor :std_name, :scaled_x, :scaled_y, :scaled_z
+
+      # { Known standard-illuminants KB
+
+      class << self
+        def allowed_stds
+          @allowed_stds.collect { |k,v| k }
+        end
+      end
+
+      # Convenient hash that stores the x,y values for each available
+      # illuminant-standard. This should not be used directly, instead instances
+      # should use their method allowed_stds
+      @allowed_stds = {
         std_A: [1.09847, 0.35582],
         std_B: [0.99093, 0.85313],
         std_C: [0.98071, 1.18225],
@@ -45,15 +64,37 @@ module Colorme
         sup_F12: [1.11428, 0.40353]
       }
 
-      attr_accessor :scaled_x, :scaled_y, :scaled_z
+      # }
 
       def initialize(name)
-        raise InvalidArgument, "invalid name" unless @@values.has_key?(name)
-
-        @scaled_x = @@values[name][0]
-        @scaled_y = 1.0
-        @scaled_z = @@values[name][1]
+        raise InvalidArgument, "invalid name" unless name_valid?(name)
+        xyz = allowed_stds[name]
+        @std_name = name
+        @scaled_x, @scaled_y, @scaled_z = xyz[:x], xyz[:y], xyz[:z]
       end
+
+      protected
+
+        # @return the allowed standards.
+        #   Each allowed standard is in the following hash form:
+        #     { x: <value>, y: <value>, z: <value> }
+        def allowed_stds
+          h = {}
+          self.class.instance_variable_get(:@allowed_stds).each do |k,v|
+            h[k] = {
+              x: self.class.instance_variable_get(:@allowed_stds)[k][0],
+              y: 1.0,
+              z: self.class.instance_variable_get(:@allowed_stds)[k][1]
+            }
+          end
+          return h
+        end
+
+        # @return
+        #   true if provided the name is an allowed standard, otherwise false
+        def name_valid?(name)
+          allowed_stds.has_key?(name)
+        end
 
     end
 

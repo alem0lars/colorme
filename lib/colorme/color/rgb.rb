@@ -4,8 +4,8 @@ require "colorme/color/standard_illuminant"
 module Colorme
   module Color
 
-    class Rgb < Color
-      attr_accessor :red, :green, :blue
+    class RGB < Color
+      attr_accessor :red, :green, :blue, :alpha
 
       # Create a new RGB color
       #
@@ -23,26 +23,26 @@ module Colorme
 
         # ==> Defaults
 
-        opts.merge {
-          alpha: 1.0
+        opts = {
+          alpha: 1.0,
           white_ref: StandardIlluminant.new(:std_D65)
-        }
+        }.merge(opts)
 
         # ==> Validation
 
         {red: red, green: green, blue: blue}.each do |name, value|
           unless value.is_a?(Fixnum) && (value >= 0) && (value <= 255)
-            raise InvalidArgument, "#{name} not in [0,255]"
+            raise ArgumentError, "#{name} not in [0,255]"
           end
         end
 
-        unless (opts[:alpha].is_a?(Float)) &&
+        unless (opts[:alpha].is_a?(Numeric)) &&
                (opts[:alpha] >= 0.0) && (opts[:alpha] <= 1.0)
-          raise InvalidArgument, "alpha isn't a floating number between 0 and 1"
+          raise ArgumentError, "alpha isn't a floating number between 0 and 1"
         end
 
         unless opts[:white_ref].is_a?(StandardIlluminant)
-          raise InvalidArgument, "white_ref isn't a valid standard illuminant"
+          raise ArgumentError, "white_ref isn't a valid standard illuminant"
         end
 
         # ==> Attributes inizialization
