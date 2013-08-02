@@ -1,3 +1,6 @@
+$:.unshift(Pathname.new(File.dirname __FILE__).join('lib'))
+
+
 # Load the bundled environment
 require "rubygems"
 require "bundler"
@@ -10,16 +13,15 @@ require "trollop"
 # { entry-point
 
 def main
-  global_opts = parse_global_opts(modes: %w(cmd qt))
-  mode, mode_opts = parse_mode_opts(ARGV, global_opts[:debug])
-  start(mode, mode_opts, global_opts)
+  global_opts = parse_global_opts(uis: %w(cmd qt))
+  ui_name, ui_opts = parse_ui_opts(ARGV, global_opts[:debug])
+  start(ui_name, ui_opts, global_opts)
 end
 
-def start(mode, mode_opts, global_opts)
-  Bundler.setup("#{mode}_mode".to_sym)
-  puts mode
-  $:.unshift(File.dirname __FILE__) && require("main_#{mode}")
-  start_mode(mode_opts.merge(global_opts))
+def start(ui_name, ui_opts, global_opts)
+  Bundler.setup("#{ui_name}_ui".to_sym)
+  require "ui"
+  start_ui(ui_name, ui_opts.merge(global_opts))
 end
 
 # }
@@ -32,7 +34,7 @@ def parse_global_opts(args)
     banner "The colors management app that you're missing"
     opt :verbose, "Be more verbose", :short => "-v"
     opt :debug, "Print debugging output", :short => "-d"
-    stop_on args[:modes]
+    stop_on args[:uis]
   end
 
   if global_opts[:debug]
@@ -42,10 +44,10 @@ def parse_global_opts(args)
   return global_opts
 end
 
-# Parse the starting-mode specific options and return them
-def parse_mode_opts(args, debug)
-  mode = args.shift # get the starting mode
-  mode_opts = case mode
+# Parse the starting-ui specific options and return them
+def parse_ui_opts(args, debug)
+  ui = args.shift # get the starting ui
+  ui_opts = case ui
   when "cmd" # parse cmd options
     Trollop::options do
       opt :name, "Command name", type: :string, required: true
@@ -55,16 +57,16 @@ def parse_mode_opts(args, debug)
       # INF: empty
     end
   else
-    Trollop::die mode ? "unknown subcommand #{mode.inspect}" : "no subcommand given"
+    Trollop::die ui ? "unknown subcommand #{ui.inspect}" : "no subcommand given"
   end
 
   if debug
-    puts "Mode: #{mode.inspect}"
-    puts "Mode options: #{mode_opts.inspect}"
+    puts "UI: #{ui.inspect}"
+    puts "UI options: #{ui_opts.inspect}"
     puts "Remaining arguments: #{args.inspect}"
   end
 
-  return [mode, mode_opts]
+  return [ui, ui_opts]
 end
 
 # }
